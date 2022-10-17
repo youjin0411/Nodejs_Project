@@ -47,10 +47,12 @@ app.get('/cart', function(req, res){
     }else{ //cart의 값이 비어있지 않다면
         var output = ''; 
         for(var id in cart){ //cart객체에 담긴 값만큼 순회를 함 
-            output += `<li>${id}</li>`;
+            //products[id].title은 products객체의 title 하나씩 뽑고
+            //cart[id]는 수량을 뽑는 것
+            output += `<li>${products[id].title} (${cart[id]})</li>`; 
         }
     }
-    res.send(`<ul>${output}</ul>`);
+    res.send(`<h1>Cart</h1><ul>${output}</ul><a href="/products">Products List</a>`);
 });
 
 app.get('/count', function(req, res){ //http://localhost:8080/count 일 때, req 요청, res응답
@@ -66,6 +68,6 @@ app.get('/count', function(req, res){ //http://localhost:8080/count 일 때, req
     res.cookie('count', count); //count의 값으로 1을 응답해서 줌 
     res.send('count : ' + count); //count의 값으로 count를 응답해서 출력한 후 저장해줌
 });
-app.listen(8080, function(){ //서버 port가 8080일 때, console창에 서버가 실행 중임을 표시해줌
+app.listen(8884, function(){ //서버 port가 8080일 때, console창에 서버가 실행 중임을 표시해줌
     console.log('Connected 8080 port !!!');
 });
